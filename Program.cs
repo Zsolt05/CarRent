@@ -1,3 +1,6 @@
+using CarRent.Data;
+using Microsoft.EntityFrameworkCore;
+
 namespace CarRent
 {
     public class Program
@@ -8,6 +11,8 @@ namespace CarRent
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            builder.Services.AddSqlite<ApplicationDbContext>(builder.Configuration.GetConnectionString("UserPortal")));
 
             var app = builder.Build();
 
