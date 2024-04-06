@@ -5,6 +5,13 @@ namespace CarRent.Data
 {
     public class ApplicationDbContext(DbContextOptions options) : DbContext(options)
     {
+        
+        public DbSet<User> Users { get; set; }
+        public DbSet<Rental> Rentals { get; set; }
+        public DbSet<Car> Cars { get; set; }
+        public DbSet<Category> Category { get; set; }
+        public DbSet<Sale> Sales { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Car>()
@@ -27,10 +34,5 @@ namespace CarRent.Data
               .WithMany(s => s.Cars)
               .HasForeignKey(r => r.SaleID);
         }
-        public DbSet<User> Users { get; set; }
-        public DbSet<Rental> Rentals { get; set; }
-        public DbSet<Car> Cars { get; set; }
-        public DbSet<Category> Category { get; set; }
-        public DbSet<Sale> Sales { get; set; }
     }
 }

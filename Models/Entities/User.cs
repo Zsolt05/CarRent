@@ -7,7 +7,7 @@ namespace CarRent.Models.Entities
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid ID { get; set; }
+        public int ID { get; set; }
 
         public string username { get; set; }
         public string name { get; set; }
