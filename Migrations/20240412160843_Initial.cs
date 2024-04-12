@@ -6,64 +6,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace CarRent.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialMigration : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropColumn(
-                name: "Password",
-                table: "Users");
-
-            migrationBuilder.RenameColumn(
-                name: "Username",
-                table: "Users",
-                newName: "username");
-
-            migrationBuilder.RenameColumn(
-                name: "Name",
-                table: "Users",
-                newName: "name");
-
-            migrationBuilder.AlterColumn<string>(
-                name: "username",
-                table: "Users",
-                type: "TEXT",
-                nullable: false,
-                oldClrType: typeof(string),
-                oldType: "nvarchar(max)");
-
-            migrationBuilder.AlterColumn<string>(
-                name: "name",
-                table: "Users",
-                type: "TEXT",
-                nullable: false,
-                oldClrType: typeof(string),
-                oldType: "nvarchar(max)");
-
-            migrationBuilder.AlterColumn<int>(
-                name: "ID",
-                table: "Users",
-                type: "INTEGER",
-                nullable: false,
-                oldClrType: typeof(Guid),
-                oldType: "uniqueidentifier")
-                .Annotation("Sqlite:Autoincrement", true);
-
-            migrationBuilder.AddColumn<byte[]>(
-                name: "passwordHash",
-                table: "Users",
-                type: "BLOB",
-                nullable: false,
-                defaultValue: new byte[0]);
-
-            migrationBuilder.AddColumn<byte[]>(
-                name: "passwordSalt",
-                table: "Users",
-                type: "BLOB",
-                nullable: false,
-                defaultValue: new byte[0]);
-
             migrationBuilder.CreateTable(
                 name: "Category",
                 columns: table => new
@@ -89,6 +36,22 @@ namespace CarRent.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Sales", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Users",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    username = table.Column<string>(type: "TEXT", nullable: false),
+                    name = table.Column<string>(type: "TEXT", nullable: false),
+                    passwordHash = table.Column<byte[]>(type: "BLOB", nullable: false),
+                    passwordSalt = table.Column<byte[]>(type: "BLOB", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Users", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -180,60 +143,13 @@ namespace CarRent.Migrations
                 name: "Cars");
 
             migrationBuilder.DropTable(
+                name: "Users");
+
+            migrationBuilder.DropTable(
                 name: "Category");
 
             migrationBuilder.DropTable(
                 name: "Sales");
-
-            migrationBuilder.DropColumn(
-                name: "passwordHash",
-                table: "Users");
-
-            migrationBuilder.DropColumn(
-                name: "passwordSalt",
-                table: "Users");
-
-            migrationBuilder.RenameColumn(
-                name: "username",
-                table: "Users",
-                newName: "Username");
-
-            migrationBuilder.RenameColumn(
-                name: "name",
-                table: "Users",
-                newName: "Name");
-
-            migrationBuilder.AlterColumn<string>(
-                name: "Username",
-                table: "Users",
-                type: "nvarchar(max)",
-                nullable: false,
-                oldClrType: typeof(string),
-                oldType: "TEXT");
-
-            migrationBuilder.AlterColumn<string>(
-                name: "Name",
-                table: "Users",
-                type: "nvarchar(max)",
-                nullable: false,
-                oldClrType: typeof(string),
-                oldType: "TEXT");
-
-            migrationBuilder.AlterColumn<Guid>(
-                name: "ID",
-                table: "Users",
-                type: "uniqueidentifier",
-                nullable: false,
-                oldClrType: typeof(int),
-                oldType: "INTEGER")
-                .OldAnnotation("Sqlite:Autoincrement", true);
-
-            migrationBuilder.AddColumn<string>(
-                name: "Password",
-                table: "Users",
-                type: "nvarchar(max)",
-                nullable: false,
-                defaultValue: "");
         }
     }
 }
