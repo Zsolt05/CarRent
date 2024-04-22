@@ -1,3 +1,9 @@
+
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using System;
+
 namespace CarRent
 {
     public class Program
@@ -8,6 +14,9 @@ namespace CarRent
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            //auth. service hozzaadasa
+            builder.Services.AddScoped<IAuthService, AuthService>();
 
             var app = builder.Build();
 
@@ -32,5 +41,8 @@ namespace CarRent
 
             app.Run();
         }
+
+        //identity config
+       
     }
 }
