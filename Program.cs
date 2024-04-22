@@ -1,8 +1,9 @@
-
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using CarRent.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace CarRent
 {
@@ -15,6 +16,7 @@ namespace CarRent
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
+            builder.Services.AddSqlite<ApplicationDbContext>(builder.Configuration.GetConnectionString("DefaultConnection"));
             //auth. service hozzaadasa
             builder.Services.AddScoped<IAuthService, AuthService>();
 
@@ -41,8 +43,5 @@ namespace CarRent
 
             app.Run();
         }
-
-        //identity config
-       
     }
 }
