@@ -1,12 +1,15 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CarRent.Models.Entities
 {
-    public class User
+    public class User:IdentityUser
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        //[StringLength(100)]
+        //[Required]
         public int ID { get; set; }
 
         public string username { get; set; }

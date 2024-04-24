@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿/*using CarRent.Data;
+using CarRent.Models.Entities;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -18,11 +20,11 @@ namespace CarRent.Services
     public class AuthService : IAuthService
     {
         private readonly IConfiguration _configuration;
-        private readonly CarRentDbContext _context;
+        private readonly ApplicationDbContext _context;
         private readonly IHttpContextAccessor _httpContext;
 
         public AuthService(
-            IConfiguration configuration, CarRentDbContext context, IHttpContextAccessor httpContext)
+            IConfiguration configuration, ApplicationDbContext context, IHttpContextAccessor httpContext)
         {
             _configuration = configuration;
             _context = context;
@@ -128,4 +130,4 @@ namespace CarRent.Services
             return _context.Users!.FirstOrDefaultAsync(x => x.Username.ToLower().Equals(username!.ToLower()));
         }
     }
-}
+}*/

@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿/*using Microsoft.AspNetCore.Mvc;
 
 namespace CarRent.Controllers
 {
@@ -7,7 +7,7 @@ namespace CarRent.Controllers
         /*public IActionResult Index()
         {
             return View();
-        }*/
+        }
 
         private readonly IAuthService _authService;
         private readonly IMapper _mapper;
@@ -34,4 +34,4 @@ namespace CarRent.Controllers
             return Ok();
         }
     }
-}
+}*/
