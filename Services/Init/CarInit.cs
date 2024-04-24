@@ -25,7 +25,7 @@ namespace CarRent.Services.Init
             }
             if (!_context.Cars.Any())
             {
-                await _context.Cars.AddAsync(new Car { CategoryID = 1, brand = "Ford", model = "Fiesta", daily_price =30000 });
+                await _context.Cars.AddAsync(new Car { CategoryID = 1, brand = "Ford", model = "Fiesta", daily_price = 30000 });
                 await _context.Cars.AddAsync(new Car { CategoryID = 2, brand = "Audi", model = "A4", daily_price = 38000 });
                 await _context.Cars.AddAsync(new Car { CategoryID = 3, brand = "Porsche", model = "911", daily_price = 40000 });
                 await _context.Cars.AddAsync(new Car { CategoryID = 4, brand = "Toyota", model = "Crown", daily_price = 60000 });
