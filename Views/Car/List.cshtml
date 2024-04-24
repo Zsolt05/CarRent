@@ -1,0 +1,33 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model List<CarRent.Models.Entities.Car>
+
+<h1> Cars </h1>
+
+<table class="table">
+    <thead> 
+        <tr>
+            <th>Id</th>
+            <th>Brand</th>
+            <th>Model</th>
+            <th>Daily_price</th>
+            <th>Category</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach ( var car in Model)
+        {
+            <tr>
+                <td>@car.ID</td>
+                <td>@car.brand</td>
+                <td>@car.model</td>
+                <td>@car.daily_price</td>
+                <td>@car.CategoryID</td>
+            </tr>
+        }
+    </tbody>
+</table>
