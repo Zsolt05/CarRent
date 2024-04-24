@@ -5,7 +5,11 @@ using System;
 using CarRent.Data;
 using CarRent.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection.Extensions;
+
+using CarRent.Services.Init;
+using CarRent.Services;
+
+
 
 namespace CarRent
 {
@@ -37,7 +41,14 @@ namespace CarRent
             //auth. service hozzaadasa
             //builder.Services.AddScoped<IAuthService, AuthService>();
 
+            builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            builder.Services.AddScoped<CarInit>();
+            builder.Services.AddScoped<ICarService, CarService>();
+
+
             var app = builder.Build();
+
+           
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
@@ -46,6 +57,17 @@ namespace CarRent
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            using (var scope = app.Services.CreateScope())
+            {
+                var ctx = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+                ctx.Database.Migrate();
+                scope.ServiceProvider.GetRequiredService<CarInit>().Init().Wait();
+            }
+            app.UseCors(x => x
+                        .AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader());
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();

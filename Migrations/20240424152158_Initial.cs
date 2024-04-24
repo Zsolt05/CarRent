@@ -25,20 +25,6 @@ namespace CarRent.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Sales",
-                columns: table => new
-                {
-                    ID = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    description = table.Column<string>(type: "TEXT", nullable: false),
-                    percent = table.Column<int>(type: "INTEGER", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Sales", x => x.ID);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
                 {
@@ -61,7 +47,6 @@ namespace CarRent.Migrations
                     ID = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     CategoryID = table.Column<int>(type: "INTEGER", nullable: false),
-                    SaleID = table.Column<int>(type: "INTEGER", nullable: false),
                     brand = table.Column<string>(type: "TEXT", nullable: false),
                     model = table.Column<string>(type: "TEXT", nullable: false),
                     daily_price = table.Column<int>(type: "INTEGER", nullable: false)
@@ -73,12 +58,6 @@ namespace CarRent.Migrations
                         name: "FK_Cars_Category_CategoryID",
                         column: x => x.CategoryID,
                         principalTable: "Category",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Cars_Sales_SaleID",
-                        column: x => x.SaleID,
-                        principalTable: "Sales",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -112,15 +91,31 @@ namespace CarRent.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Sales",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    CarID = table.Column<int>(type: "INTEGER", nullable: false),
+                    description = table.Column<string>(type: "TEXT", nullable: false),
+                    percent = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Sales", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_Sales_Cars_CarID",
+                        column: x => x.CarID,
+                        principalTable: "Cars",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Cars_CategoryID",
                 table: "Cars",
                 column: "CategoryID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Cars_SaleID",
-                table: "Cars",
-                column: "SaleID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Rentals_CarID",
@@ -131,6 +126,11 @@ namespace CarRent.Migrations
                 name: "IX_Rentals_UserID",
                 table: "Rentals",
                 column: "UserID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Sales_CarID",
+                table: "Sales",
+                column: "CarID");
         }
 
         /// <inheritdoc />
@@ -140,16 +140,16 @@ namespace CarRent.Migrations
                 name: "Rentals");
 
             migrationBuilder.DropTable(
-                name: "Cars");
+                name: "Sales");
 
             migrationBuilder.DropTable(
                 name: "Users");
 
             migrationBuilder.DropTable(
-                name: "Category");
+                name: "Cars");
 
             migrationBuilder.DropTable(
-                name: "Sales");
+                name: "Category");
         }
     }
 }

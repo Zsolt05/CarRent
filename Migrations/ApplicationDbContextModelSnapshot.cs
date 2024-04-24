@@ -26,9 +26,6 @@ namespace CarRent.Migrations
                     b.Property<int>("CategoryID")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("SaleID")
-                        .HasColumnType("INTEGER");
-
                     b.Property<string>("brand")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -43,8 +40,6 @@ namespace CarRent.Migrations
                     b.HasKey("ID");
 
                     b.HasIndex("CategoryID");
-
-                    b.HasIndex("SaleID");
 
                     b.ToTable("Cars");
                 });
@@ -100,6 +95,9 @@ namespace CarRent.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("CarID")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("description")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -108,6 +106,8 @@ namespace CarRent.Migrations
                         .HasColumnType("INTEGER");
 
                     b.HasKey("ID");
+
+                    b.HasIndex("CarID");
 
                     b.ToTable("Sales");
                 });
@@ -147,15 +147,7 @@ namespace CarRent.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CarRent.Models.Entities.Sale", "Sale")
-                        .WithMany("Cars")
-                        .HasForeignKey("SaleID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Category");
-
-                    b.Navigation("Sale");
                 });
 
             modelBuilder.Entity("CarRent.Models.Entities.Rental", b =>
@@ -177,17 +169,25 @@ namespace CarRent.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("CarRent.Models.Entities.Sale", b =>
+                {
+                    b.HasOne("CarRent.Models.Entities.Car", "Car")
+                        .WithMany("Sales")
+                        .HasForeignKey("CarID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Car");
+                });
+
             modelBuilder.Entity("CarRent.Models.Entities.Car", b =>
                 {
                     b.Navigation("Rentals");
+
+                    b.Navigation("Sales");
                 });
 
             modelBuilder.Entity("CarRent.Models.Entities.Category", b =>
-                {
-                    b.Navigation("Cars");
-                });
-
-            modelBuilder.Entity("CarRent.Models.Entities.Sale", b =>
                 {
                     b.Navigation("Cars");
                 });
