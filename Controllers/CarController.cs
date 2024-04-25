@@ -1,4 +1,6 @@
 ﻿using CarRent.Data;
+using CarRent.Models.Entities;
+using CarRent.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,11 +16,19 @@ namespace CarRent.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> List()
+        public async Task<IActionResult> List(int categoryNumber)
         {
-            var cars= await dbContext.Cars.ToListAsync();
-
-            return View(cars);
+            if (categoryNumber != 0)
+            {
+                var cars = await dbContext.Cars.Where(c => c.CategoryID == categoryNumber).ToListAsync();
+                return View(cars);
+            }
+            else 
+            {
+                var cars = await dbContext.Cars.ToListAsync();
+                return View(cars);
+            }
+            
         }
         /*public IActionResult Index()
         {
