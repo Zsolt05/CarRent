@@ -1,0 +1,55 @@
+﻿@using CarRent.ViewModels;
+@model LoginVM 
+@{
+    ViewData["Title"] = "Login";
+}
+
+<div class="row d-flex align-items-center justify-content-center">
+    <div class="col-md-3 card p-3">
+        <h2 class="text-center text-info" style="text-decoration: underline solid;">Login</h2>
+        <form asp-action="Login" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <!--Username mezok-->
+            <div class="mb-1">
+                <label asp-for="Username" class="control-label"></label>
+                <input asp-for="Username" class="form-control"/>
+                <span asp-validation-for="Username" class="text-danger"></span>
+            </div>
+
+            <!--Jelszo mezok-->
+            <div class="mb-1">
+                <label asp-for="Password" class="control-label"></label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+
+            <!--Login button-->  <!--gomb kozepre, meg nem mukodik-->
+            <div class="row">
+                <div class="col-4">
+                    <input type="submit" value="Login" class="btn btn-primary btn-sm float-end"/>
+                     <!--<button class="btn btn-outline-light btn-lg px-5" type="submit" onclick="login()">
+                        Belépés
+                    </button>-->
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+@section Scripts{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+}
+}
+                <!--<div class="form-outline form-white mb-4">
+                                <input type="email" id="typeEmail" class="form-control form-control-lg"
+                                       value="user@example.com"/>
+                                <label class="form-label" for="typeEmail">E-mail</label>
+                            </div>
+                            <div class="form-outline form-white mb-4">
+                                <input type="password" id="typePassword" class="form-control form-control-lg"
+                                       value="string"/>
+                                <label class="form-label" for="typePassword">Jelszó</label>
+                            </div>-->

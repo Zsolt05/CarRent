@@ -1,7 +1,14 @@
-using CarRent.Data;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using System;
+using CarRent.Data;
+using CarRent.Models;
+using Microsoft.EntityFrameworkCore;
+
 using CarRent.Services.Init;
 using CarRent.Services;
+
 
 
 namespace CarRent
@@ -15,7 +22,24 @@ namespace CarRent
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
+            /*ilder.Services.AddDbContext<ApplicationDbContext>(
+                options=>options.UseSqlServer(connectionString)
+                );*/
+
             builder.Services.AddSqlite<ApplicationDbContext>(builder.Configuration.GetConnectionString("DefaultConnection"));
+            
+            builder.Services.AddIdentity<Models.Entities.User, IdentityRole>(
+                options =>
+                {
+                    options.Password.RequiredUniqueChars = 1;
+                    options.Password.RequireUppercase = false;
+                    options.Password.RequiredLength = 8;
+                    options.Password.RequireNonAlphanumeric = false;
+                    options.Password.RequireLowercase= false;
+                })
+                .AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
+            //auth. service hozzaadasa
+            //builder.Services.AddScoped<IAuthService, AuthService>();
 
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             builder.Services.AddScoped<CarInit>();
