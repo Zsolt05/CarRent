@@ -35,10 +35,10 @@ namespace CarRent.Data
                     .WithMany(r => r.Rentals)
                     .HasForeignKey(l => l.CarID);
 
-                modelBuilder.Entity<Car>()
-                  .HasOne<Sale>(r => r.Sale)
-                  .WithMany(s => s.Cars)
-                  .HasForeignKey(r => r.SaleID);
+               modelBuilder.Entity<Sale>()
+                  .HasOne<Car>(e => e.Car)
+                  .WithMany(r => r.Sales)
+                  .HasForeignKey(e => e.CarID);
             }
         
     }
