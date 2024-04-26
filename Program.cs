@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using CarRent.Models.Entities;
 
 
+
 namespace CarRent
 {
     public class Program
@@ -63,9 +64,10 @@ namespace CarRent
                 options.AddPolicy("MyPolicy", policy =>
                 {
                     policy.RequireAuthenticatedUser();
-                    // Egyéb jogosultsági követelmények...
                 });
             });
+
+
 
             var app = builder.Build();
 
