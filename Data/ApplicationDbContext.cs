@@ -1,14 +1,10 @@
 ﻿using CarRent.Models.Entities;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace CarRent.Data
 {
-    public class ApplicationDbContext : IdentityDbContext<User> {
-
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
-        { }
+        public class ApplicationDbContext(DbContextOptions options) : DbContext(options)
+        { 
 
             public DbSet<User> Users { get; set; }
             public DbSet<Rental> Rentals { get; set; }
@@ -41,5 +37,5 @@ namespace CarRent.Data
                   .HasForeignKey(e => e.CarID);
             }
         
-    }
+        }
 }

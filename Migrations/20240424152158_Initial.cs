@@ -32,8 +32,7 @@ namespace CarRent.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     username = table.Column<string>(type: "TEXT", nullable: false),
                     name = table.Column<string>(type: "TEXT", nullable: false),
-                    passwordHash = table.Column<byte[]>(type: "BLOB", nullable: false),
-                    passwordSalt = table.Column<byte[]>(type: "BLOB", nullable: false)
+                    password = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {

@@ -28,7 +28,7 @@ namespace CarRent
 
             builder.Services.AddSqlite<ApplicationDbContext>(builder.Configuration.GetConnectionString("DefaultConnection"));
             
-            builder.Services.AddIdentity<Models.Entities.User, IdentityRole>(
+            /*builder.Services.AddIdentity<Models.Entities.User, IdentityRole>(
                 options =>
                 {
                     options.Password.RequiredUniqueChars = 1;
@@ -37,7 +37,7 @@ namespace CarRent
                     options.Password.RequireNonAlphanumeric = false;
                     options.Password.RequireLowercase= false;
                 })
-                .AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
+                .AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();*/
             //auth. service hozzaadasa
             //builder.Services.AddScoped<IAuthService, AuthService>();
 
@@ -63,6 +63,12 @@ namespace CarRent
                 var ctx = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
                 ctx.Database.Migrate();
                 scope.ServiceProvider.GetRequiredService<CarInit>().Init().Wait();
+            }
+            using (var scope = app.Services.CreateScope())
+            {
+                var ctx = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+                ctx.Database.Migrate();
+                scope.ServiceProvider.GetRequiredService<UserInit>().Init().Wait();
             }
             app.UseCors(x => x
                         .AllowAnyOrigin()
